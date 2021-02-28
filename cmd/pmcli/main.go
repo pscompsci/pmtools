@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/pscompsci/pmtools/internal/pkg/console"
+	"github.com/pscompsci/pmtools/internal/pmtools"
 )
 
 func main() {
@@ -12,6 +13,8 @@ func main() {
 	w := *bufio.NewWriter(os.Stdout)
 
 	c := console.New(&r, &w)
+
+	p := &pmtools.Project{SOW: &pmtools.SOW{}, PCalc: &pmtools.PCalc{}}
 
 	// pn := c.ReadString("Project Name")
 	// pc := c.ReadString("Project Code")
@@ -21,5 +24,5 @@ func main() {
 
 	// fmt.Printf("\n%s\n%s\n%s\n%s\n%s\n", pn, pc, cn, ca, pm)
 
-	run(c)
+	run(c, p)
 }
