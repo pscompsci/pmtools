@@ -24,6 +24,10 @@ func (p *pmtools) serve() error {
 		signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 		s := <-quit
 
+		p.logger.PrintInfo("caught signal", map[string]string{
+			"signal": s.String(),
+		})
+
 		fmt.Println("\ncaught signal", map[string]string{
 			"signal": s.String(),
 		})
@@ -36,9 +40,18 @@ func (p *pmtools) serve() error {
 			shutdownError <- err
 		}
 
+		p.logger.PrintInfo("completing background tasks", map[string]string{
+			"addr": srv.Addr,
+		})
+
 		p.wg.Wait()
 		shutdownError <- nil
 	}()
+
+	p.logger.PrintInfo("starting server", map[string]string{
+		"env":  p.config.Env,
+		"addr": srv.Addr,
+	})
 
 	err := srv.ListenAndServe()
 	if !errors.Is(err, http.ErrServerClosed) {
@@ -49,6 +62,10 @@ func (p *pmtools) serve() error {
 	if err != nil {
 		return err
 	}
+
+	p.logger.PrintInfo("stopped server", map[string]string{
+		"addr": srv.Addr,
+	})
 
 	return nil
 }

@@ -3,18 +3,21 @@ package pmtools
 import (
 	"bytes"
 	"fmt"
-	"log"
 	"net/http"
 	"runtime/debug"
 )
 
 func (p *pmtools) serverError(w http.ResponseWriter, err error) {
 	trace := fmt.Sprintf("%s\n%s", err.Error(), debug.Stack())
-	log.Println(trace)
+	p.logger.PrintError(trace, nil)
 }
 
 func (p *pmtools) clientError(w http.ResponseWriter, status int) {
 	http.Error(w, http.StatusText(status), status)
+}
+
+func (p *pmtools) notFound(w http.ResponseWriter) {
+	p.clientError(w, http.StatusNotFound)
 }
 
 func (p *pmtools) addDefaultData(td *templateData, r *http.Request) *templateData {
