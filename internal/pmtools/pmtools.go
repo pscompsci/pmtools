@@ -5,12 +5,14 @@ import (
 	"os"
 	"sync"
 
+	"github.com/pscompsci/pmtools/internal/cache"
 	"github.com/pscompsci/pmtools/pkg/log"
 )
 
 type pmtools struct {
 	config    *Config
 	logger    *log.Logger
+	cache     *cache.Cache
 	templates map[string]*template.Template
 	wg        sync.WaitGroup
 }
@@ -25,6 +27,7 @@ func New(cfg *Config) *pmtools {
 	return &pmtools{
 		config:    cfg,
 		logger:    logger,
+		cache:     cache.New(),
 		templates: templates,
 	}
 }

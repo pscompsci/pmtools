@@ -14,6 +14,9 @@ func (p *pmtools) routes() http.Handler {
 
 	router.Get("/", p.handleHome())
 
+	router.Get("/snapshot", p.handleNewSnapshot())
+	router.Post("/snapshot", p.handleNewShapshotSubmit())
+
 	fileserver := http.FileServer(http.Dir("./web/static/"))
 	router.Get("/static/", http.StripPrefix("/static", fileserver))
 

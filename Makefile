@@ -28,7 +28,7 @@ clean:
 
 ## run/mock: generate mock data files
 .PHONY: run/mock
-run/mock: clean/mock
+run/mock: clean
 	@python3 ./tools/mock/main.py 200
 
 # ============================================================================ #

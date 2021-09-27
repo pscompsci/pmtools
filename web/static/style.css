@@ -1,1 +1,32 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+main {
+  display: block;
+}
+
+.error {
+  font-size: 0.6em;
+  color: red;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.form-canvas {
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 1em;
+}
+
+.table-edit {
+  font-size: 0.8em;
+}
+
+.edit {
+  color: orange;
+}
+
+.delete {
+  color: red;
+}/*# sourceMappingURL=style.css.map */
